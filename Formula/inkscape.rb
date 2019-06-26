@@ -1,10 +1,10 @@
 class Inkscape < Formula
   desc "Professional vector graphics editor"
   homepage "https://inkscape.org/"
-  url "https://launchpad.net/inkscape/0.92.x/0.92.2/+download/inkscape-0.92.2.tar.bz2"
-  mirror "https://mirrors.kernel.org/debian/pool/main/i/inkscape/inkscape_0.92.2.orig.tar.bz2"
-  sha256 "a628d0e04c254e9840947e6d866974f92c68ae31631a38b94d9b65e5cd84cfd3"
-  revision 1
+  url "https://launchpad.net/inkscape/0.92.x/0.92.4/+download/inkscape-0.92.4.tar.bz2"
+  mirror "https://mirrors.kernel.org/debian/pool/main/i/inkscape/inkscape_0.92.4.orig.tar.bz2"
+  sha256 "57ec2da8177b36614a513e2822efd73af721e690f7ddc6bd0a5fbb1525b4515e"
+  revision 2
 
   head do
     url "https://gitlab.com/inkscape/inkscape.git", :using => :git
@@ -12,10 +12,10 @@ class Inkscape < Formula
   end
 
   stable do
-    patch do
-      url "https://gitlab.com/inkscape/inkscape/commit/93ccf03162cd2e46d962822d5507865f3451168c.diff"
-      sha256 "1f037cc29cee8e0c60ab4753d4151741c8170e4849129bac68fdc60925eb971d"
-    end
+    url "https://gitlab.com/inkscape/inkscape.git", 
+      :using => :git, 
+      :tag => "INKSCAPE_0_92_4", 
+      :revision => "cbf31a1a41043daf8822ab6a082f12fb37a998fa"
   end
 
   option "branch-0.92", "When used with --HEAD, build from the 0.92.x branch"
@@ -45,8 +45,6 @@ class Inkscape < Formula
   depends_on "gtkmm3" if build.with? "gtk3"
   depends_on "gdl" if build.with? "gtk3"
   depends_on "gtkmm" if build.without? "gtk3"
-
-  needs :cxx11
 
   if MacOS.version < :mavericks
     fails_with :clang do
